@@ -20,7 +20,9 @@ def inicio(request):
         return render(request, "agalery/index.html")
    
 def obras(request):
-     return render(request, 'agalery\obra.html')
+    #return render(request, 'agalery\obra.html')
+    obras = obra.objects.all()
+    return render(request, "agalery/obras.html",{'obras': obras}) 
     
 def buscarobras(request):
      query = request.GET.get('titulo')
@@ -172,3 +174,23 @@ def editar_obra (request):
 def editobra(request):
     mas_datos, _ = obra.objects.get_or_create(user=request.user)
     return render(request, "agalery/perfil_obra.html", {'mas_datos':mas_datos})
+
+# Detalle de obra 
+def lista_post(request):
+    buscar_post = request.GET.get('titulo',None)
+    if buscar_post is not None:
+        posts = obra.objects.filter(titulo__icontains=buscar_post)
+    else:
+        posts = obra.objects.all()    
+    #form = Buscar_post(request)
+    return render(request, "agalery/lista_posts.html", {'posts':posts})
+
+
+class DetallePost(DetailView):
+    model = obra
+    template_name = 'agalery/obra_detail.html'
+
+class DeletePost(DeleteView):
+   model = obra
+   template_name = 'agalery/obra_confirm_delete.html'
+   success_url = reverse_lazy('obra')

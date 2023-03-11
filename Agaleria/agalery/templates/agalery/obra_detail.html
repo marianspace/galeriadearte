@@ -1,0 +1,22 @@
+{% extends "agalery/padre.html" %}
+
+{% block contenido %}
+<ul>
+  <div class="row">
+      <div class="col-lg-8">
+          <div class="card mb-6">
+            <div class="card-body">
+              <p class="card-text"><b>{{obra.titulo}}</b> | $ {{obra.precio}}</p>
+              {% if request.user.is_authenticated %}
+              {% endif %}                            
+            </div>
+            {% if post.imagen %}
+            <img  src="{{post.imagen.url}}"alt="" width="300" height="300"  >
+            {% else %}
+            <img  src="https://pescadata-images.s3.us-west-1.amazonaws.com/1642026639704no-image.png" alt="..." width="300" height="300">
+            {% endif %}
+          </div>
+      </div>
+  </div>
+</ul>
+{% endblock contenido %}
