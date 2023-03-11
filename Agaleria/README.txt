@@ -9,6 +9,8 @@ los tipos de usuaros no estas diferenciado salvo que se entre al admin de Django
 Igualmente una vez logueado el usuario puede realizar la modificación de perfil y obras (opción que solo esta permitida para artistas)
 No se cargan las imágenes  
 
+Link de Youtube
+https://youtu.be/WB6L2YlePXY
 
 Requerimientos
 Requiere instalar Pillow comando python -m pip install pillow
