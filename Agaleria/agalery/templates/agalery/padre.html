@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-        <html lang="en">
-            <head>
-                {% load static %}
-                {% block head %}
-                <meta charset="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Inicio</title>
-                <!-- Favicon-->
-                <link rel="icon" type="image/x-icon" href="agalery/assets/favicon.ico" />
-                <!-- Bootstrap icons-->
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
-                <!-- Core theme CSS (includes Bootstrap)-->
-                <link href={% static 'agalery/css/styles.css' %} rel="stylesheet" />
-                {% endblock head %}
-            </head>
-        <body>
-        {% block nav %}
+<html lang="en">
+    <head>
+        {% load static %} 
+        {% block head %}   
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Agalery - Galeria de arte</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'agalery/css/styles.css' %}" rel="stylesheet" />
+        {% endblock head %}
+    </head>
+    <body>
+    {% block nav %}
     <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light"">
             <div class="container px-lg-5">
             <!--<a class="navbar-brand" href="#!">Start Bootstrap</a>-->
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -27,17 +24,16 @@
                             <li class="nav-link"><a class="nav-link" href={% url 'nosotros' %}>Nosotros</a></li>
                             <li class="nav-link"><a class="nav-link" href={% url 'obra' %}>Obras</a></li>
                             <li class="nav-link"><a class="nav-link" href={% url 'buscarobras' %}>Buscar Obra</a></li>    
-                    </ul>
+                    
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         {% if request.user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href={% url 'perfil'%}><img src="{{user_avatar}}" alt="Perfil" height="30"></a></li>  
-                            <li class="nav-item"><a class="nav-link" href={% url 'registro_obra'%} >Registrar obra</a></li>
-                            <li class="nav-item"><a class="nav-link" href={% url 'logout'%}>Logout </a></li>
+                            <li class="nav-link"><a class="nav-link" href={% url 'perfil'%}><img src="{{user_avatar}}" alt="Perfil" height="30"></a></li>  
+                            <li class="nav-link"><a class="nav-link" href={% url 'registro_obra'%} >Registrar obra</a></li>
+                            <li class="nav-link"><a class="nav-link" href={% url 'logout'%}>Logout </a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href={% url 'login'%}>Login </a></li>
-                            <li class="nav-item"><a class="nav-link" href={% url 'register'%}>Register</a></li>
+                            <li class="nav-link"><a class="nav-link" href={% url 'login'%}>Login </a></li>
+                            <li class="nav-link"><a class="nav-link" href={% url 'register'%}>Register</a></li>
                         {% endif %}
                     </ul>
                 </div>
