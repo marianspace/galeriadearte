@@ -1,8 +1,8 @@
 {% extends "agalery/padre.html"%}
-{% load static %}
-{% block contenidoquecambia %}
-<h3>Listado de obras disponibles</h3>
-{% for obra in obras %}
-    <li><b>{{obra.nombre}} - <FONT COLOR="blue">{{ obra.titulo }}</FONT></b> - {{ obra.descripcion }}</li>
-{% endfor %}
+        {% block contenido %}
+            <h5>Somos una galeria de Arte Online.<br>
+                Una plataforma de visibilización para artistas nuevos<br>
+                Registrate y comenzá a comercializar tu obra<br>
+                El equipo de A Galeria de Arte
+            </h5>
 {% endblock %}

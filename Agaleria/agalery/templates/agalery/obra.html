@@ -1,18 +1,11 @@
 {% extends "agalery/padre.html"%}
-{% block contenido %}
-<section class="py-5">
-    <div class="container my-5">
-        <div class="col-lg-6">
-            {% load static %}
-            {% block contenidoquecambia %}
-
+        {% block contenido %}
+        <section class="pt-4">
+            <div class="container">
+                <div class="row center gx-lg-5">   
             <h3>Listado de obras disponibles</h3>
             {% for obra in obras %}
-                <li><b>{{obra.artista}} - <FONT COLOR="blue">{{ obra.titulo }}</FONT></b> - {{ obra.descripcion }}</li>
+                <b>{{obra.nombre}} - <FONT COLOR="blue">{{ obra.titulo }}</FONT>- {{ obra.descripcion }} </b> <br>
             {% endfor %}
 
-            {% endblock %}
-        </div>
-    </div>
-</section>
-{% endblock contenido %}
+{% endblock %}

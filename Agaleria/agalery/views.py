@@ -37,17 +37,23 @@ def todas_obras(request):
 def nosotros(request): 
     return render (request,'agalery/nosotros.html')
 
-def blog(request):
-    posts = Post.objects.all()
-    return render(request, "agalery/blog.html",{'posts': posts}) 
+def perfil(request):
+    mas_datos, _ = usuario_a.objects.get_or_create(user=request.user)
+    return render(request, "agalery/perfil_user.html", {'mas_datos':mas_datos ,'user_avatar':buscar_url_avatar(request.user)})
+
+def buscar_url_avatar(user):
+    usuario_extendido, _ = usuario_a.objects.get_or_create(user=user)
+    if usuario_extendido.imagen:
+        return usuario_extendido.imagen.url
+    else:
+        return 'https://www.gravatar.com/avatar/' 
+
+# Login Registro
 
 def register (request): 
     if request.method == 'POST':
         form = form_register(request.POST,request.FILES)
-        usuario_extendido, _ = User.objects.get_or_create(user=request.user)
-        if form.is_valid():
-            user = usuario_extendido(imagen=form.cleaned_data['imagen'])
-            user.save()
+        if form.is_valid():    
             username = form.cleaned_data['username']
             form.save()
             return render(request, "agalery/index.html", {'msj':f'Se creo el user {username}'})
@@ -93,7 +99,7 @@ def editar (request):
                 logued_user.set_password(data.get('password1'))
                 msj = 'Se actualizo la contraseña' 
             else:
-                msj = 'No se cambio la contraseña'
+                msj = 'Se actualizo el perfil'
             logued_user.save()
             usuario_extendido.save()          
             return render(request, "agalery/index.html", {'msj':msj, 'user_avatar':buscar_url_avatar(request.user)})
@@ -111,69 +117,58 @@ def editar (request):
     )
     return render(request, "agalery/editar_user.html", {'form':form, 'msj':'', 'user_avatar':buscar_url_avatar(request.user)})
 
-def perfil(request):
-    mas_datos, _ = usuario_a.objects.get_or_create(user=request.user)
-    return render(request, "agalery/perfil_user.html", {'mas_datos':mas_datos ,'user_avatar':buscar_url_avatar(request.user)})
-
-def buscar_url_avatar(user):
-    usuario_extendido, _ = usuario_a.objects.get_or_create(user=user)
-    if usuario_extendido.imagen:
-        return usuario_extendido.imagen.url
-    else:
-        return 'https://www.gravatar.com/avatar/' 
-
-# Posteos
-
-# @login_required
-# def formulario_obra(request):
-#     if request.method == 'POST':
-#         form = registro_obra(request.POST, files=request.FILES)
-#         if form.is_valid():
-#             data = form.cleaned_data
-#             msj = form.cleaned_data['titulo']   
-#             posteo = Post(titulo=data ['titulo'], subtitulo=data['subtitulo'], texto=data['texto'], autor=data['autor'], imagen=data['imagen_post'])
-#             posteo.save()
-#             return render(request, "agalery/index.html", {'msj':f'Se creo el post "{msj}"', 'user_avatar':buscar_url_avatar(request.user)})
-#         else:
-#             return render(request, "agalery/registro_obra.html", {'form':form, 'user_avatar':buscar_url_avatar(request.user)})
-#     form =registro_obra()
-#     return render(request, "agalery/registro_obra.html", {'form':form, 'user_avatar':buscar_url_avatar(request.user)})
-
-
-# def lista_post(request):
-#     buscar_post = request.GET.get('titulo',None)
-#     if buscar_post is not None:
-#         posts = Post.objects.filter(titulo__icontains=buscar_post)
-#     else:
-#         posts = Post.objects.all()    
-#     form = Buscar_post()
-#     return render(request, "agalery/lista_posts.html", {'form':form,'posts':posts, 'user_avatar':buscar_url_avatar(request.user)})
-
-
-# class DeletePost(DeleteView):
-#    model = Post
-#    template_name = 'agalery/Post_confirm_delete.html'
-#    success_url = reverse_lazy('blog')
-
-
-# class DetallePost(DetailView):
-#     model = Post
-#     template_name = 'agalery/post_detail.html'
-    
+# Registro de obra
 @login_required
 def registrar_obra(request):
      form = registro_obra()
      if request.method == 'POST':
          form = registro_obra(request.POST)
          if form.is_valid():
-             first_name = form.cleaned_data['Nombre']
-             last_name = form.cleaned_data['Apellido']
+             #first_name = form.cleaned_data['Nombre']
+             #last_name = form.cleaned_data['Apellido']
              titulo = form.cleaned_data['titulo']
              descripcion = form.cleaned_data['descripcion']
              precio = form.cleaned_data['precio']
-             obra_nueva = obra(first_name=first_name, last_name=last_name, titulo=titulo, descripcion=descripcion, precio=precio)
+             obra_nueva = obra(titulo=titulo, descripcion=descripcion, precio=precio)
              obra_nueva.save()
-             return render(request, 'agalery/obra.html')
+             msj = 'Obra agregada'
+             return render(request, 'agalery/index.html', {'msj':'Obra agregada'})
      return render(request, 'agalery/registro_obra.html', {'form': form, 'registro_obra': registro_obra})   
     
+@login_required
+def editar_obra (request):
+    usuario_obra, _ = registro_obra.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        formobra = form_edit_obra(request.POST,request.FILES)
+        if formobra.is_valid():           
+            data = formobra.cleaned_data
+            logued_user = request.user 
+            logued_user.email = data.get('email')
+            usuario_obra.titulo = data['titulo']
+            usuario_obra.descripcion= data['descripción']
+            usuario_obra.imagen = data['imagen']
+            usuario_obra.precio = data['precio']
+            # if data.get('password1') == data.get('password2') and len(data.get("password1")) >8:
+            #     logued_user.set_password(data.get('password1'))
+            #     msj = 'Se actualizo la contraseña' 
+            # else:
+            msj = 'Se realizaron cambios'
+            logued_user.save()
+            usuario_obra.save()          
+            return render(request, "agalery/index.html", {'msj':msj, 'user_avatar':buscar_url_avatar(request.user)})
+        else:
+            return render(request, "agalery/index.html", {'form':form, 'msj':'', 'user_avatar':buscar_url_avatar(request.user)})      
+    form = form_edit_obra(
+        initial={
+            'email': request.user.email,
+            'titulo': usuario_obra.titulo,
+            'descripcion': usuario_obra.descripcion,
+            'imagen': usuario_obra.imagen,
+            'precio': usuario_obra.precio 
+        }
+    )
+    return render(request, "agalery/editar_obra.html", {'form':form, 'msj':'', 'user_avatar':buscar_url_avatar(request.user)})
 
+def editobra(request):
+    mas_datos, _ = obra.objects.get_or_create(user=request.user)
+    return render(request, "agalery/perfil_obra.html", {'mas_datos':mas_datos})

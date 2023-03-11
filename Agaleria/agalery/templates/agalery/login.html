@@ -1,20 +1,14 @@
 {% extends "agalery/padre.html"%}
-{% block contenido %}
-<section class="py-5">
-    <div class="container my-5">
-        <div class="col-lg-6">
-            {% load static %}
-            {% block contenidoquecambia %}
-            
+        {% block contenido %}
+        <section class="pt-4">
+            <div class="container">
+                <div class="row center gx-lg-5">      
             <h1>Ingresar</h1>
             <form action="" method="post">
                 {% csrf_token %}
                 <table> {{form.as_p}} </table>
                 <button>Aceptar</button>
             </form>
-
-            {% endblock %}
         </div>
-    </div>
     </section>
     {% endblock contenido %}

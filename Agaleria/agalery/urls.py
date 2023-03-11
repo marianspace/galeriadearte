@@ -13,11 +13,8 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),     
     path('logout/', LogoutView.as_view(template_name="agalery/index.html"), name='logout'),
     path('nosotros/', views.nosotros, name="nosotros"),
-    path('blog/',views.blog, name="blog"),
     path('registro_obra/', views.registrar_obra, name='registro_obra'),
-    #path('lista_post/', views.lista_post, name='Lista_posts'),
-    #path(r'^delete_post/(?P<pk>\d+)/$', views.DeletePost.as_view(), name='delete_posts'),
-    #path(r'^detalle_post/(?P<pk>\d+)/$', views.DetallePost.as_view(), name='detalle_posts'),
-
-]
+    path('editar/obra/', views.editar_obra, name='editarobra'),
+    path('pobra/', views.editobra, name='pobra'),
+] 
  

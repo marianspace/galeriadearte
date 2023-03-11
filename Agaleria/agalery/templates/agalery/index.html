@@ -1,20 +1,17 @@
 {% extends "agalery/padre.html"%}
         {% block contenido %}
         <section class="pt-4">
-            <div class="container-sm">
-            <!-- Page Features-->
-                <div class="row gx-lg-5">
-                    <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body">
-                                <h2 class="card-title">Catalogo</h2>
-                            </div>
-                            <div class="card-footer">
+            <div class="container">
+                <div class="row center gx-lg-5">     
+                    {% if msj %}
+                    <h1 class="display-5 fw-bold">
+                        {{msj}}
+                    </h1> 
+                                <h2 class="card-title">Catálogo</h2>
                                 <a href={% url 'obra'%} class="btn btn-primary">Obras</a>
+                
                             </div>
-                        </div>
-                    </div>
-                </div>
+                            {% endif %}
             </div>
         </section>
         {% endblock contenido %}

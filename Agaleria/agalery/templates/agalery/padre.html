@@ -33,7 +33,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href={% url 'perfil'%}><img src="{{user_avatar}}" alt="Perfil" height="30"></a></li>  
-                            <li class="nav-item"><a class="nav-link" href={% url 'registro_obra'%} >Subir post</a></li>
+                            <li class="nav-item"><a class="nav-link" href={% url 'registro_obra'%} >Registrar obra</a></li>
                             <li class="nav-item"><a class="nav-link" href={% url 'logout'%}>Logout </a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href={% url 'login'%}>Login </a></li>
@@ -49,57 +49,35 @@
             <div class="container-sm">
                 <div class="bg-light rounded-1 text-center">
                     <div class="m-1 m-lg-1">                  
-                        {% if msj %}
-                        <h1 class="display-3 fw-bold">
-                            {{msj}}
-                        </h1>
-                        {% else %}
                         <h1 class="display-3 fw-bold">
                             AGalery Bienvenidos
-                        </h1>
-                        {% endif %}                   
+                        </h1>                 
                     </div>
                 </div>
             </div>
         </header>
     <!-- Page Content-->
-        <section class="pt-1">
+        <section class="py-1">
             <div class="container-sm">
-            <!-- Page Features-->
-                <div class="row gx-lg-5">
-                    <div class="col-lg-6 col-xxl-4 mb-5">
-                        <!--div class="card h-100 border-0 shadow-sm"-->
-                            <!--div class="card-body"-->
+                <div class="bg-light rounded-1 text-center">
+                    <div class="m-1 m-lg-1">                  
                                 {% block contenido %}
                                 {% block contenidoquecambia %}
 <!-- Aca va el código que cambia -->
  {% endblock %}   
  {% endblock contenido %}                    
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
     <!-- Footer-->
         {% block footer %}
-        <footer class="py-10 bg-dark">
-            <div>
-                <div class="container">
-                    <div class="row align-items-center justify-content-xl-between">
-                        <div class="col-xl-5">
-                            <div class="copyright text-center text-xl-left text-muted">
+        <footer class="py-10 bg-dark">          
+                <div class="container">       
+                <div class="copyright text-center text-xl-left text-muted">
                                 copyright &copy; 2023 - Template Frankenstein
-                            </div>
-                        </div>
-                        <div class="col-xl-10">
-                            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                                <li class="nav-item">
-                                    <a href= {% url 'nosotros'%} class="nav-link" target="_blank">Nosotros</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href= {% url 'index'%} class="nav-link" target="_blank">contacto</a></li>
-            </div>
+                </div>
+            </div>          
         </footer>
         {% endblock footer %}
     <!-- Bootstrap core JS-->
