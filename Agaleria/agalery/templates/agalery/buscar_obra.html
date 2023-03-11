@@ -1,0 +1,26 @@
+{% extends "agalery/padre.html"%}
+{% block contenido %}
+<section class="py-5">
+    <div class="container my-5">
+        <div class="col-lg-6">
+            {% load static %}
+            {% block contenidoquecambia %}
+
+ <h3><FONT COLOR="blue">Buscar obras</FONT></h3>Si no ingresas nada aparecen todas las obras del catalogo
+    <form action="{% url 'buscarobras' %}" method="get">
+        <label for="titulo"><b> Título:</b></label>
+        <input type="text" id="titulo" name="titulo" value="{{ request.GET.titulo }}">
+        <button type="submit">Buscar</button>
+    </form>
+    {% if resultados %}
+    <h3><FONT COLOR="blue">Resultados</FONT></h3>
+    <ul>
+        {% for obra in resultados %}
+        <li><b>Obra: </b>{{ obra.titulo }} <b>| Artista: </b> {{ obra.artista }}</li>
+
+        {% endblock %}
+    </div>
+</div>
+</section>
+{% endblock contenido %}
+

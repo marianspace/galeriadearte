@@ -13,6 +13,7 @@ class form_register(UserCreationForm):
     email = forms.EmailField (required=False)
     password1 = forms.CharField(label='Contraseña', widget= forms.PasswordInput())
     password2 = forms.CharField(label='Repetir contraseña', widget= forms.PasswordInput())
+    grupo = forms.ChoiceField()
     class Meta:
         model = User
         fields = [
@@ -22,7 +23,6 @@ class form_register(UserCreationForm):
             'password2',
             ]       
         help_texts = {k: '' for k in fields}
-
 
 class form_edit_user(forms.Form):
     email = forms.EmailField()
@@ -34,11 +34,6 @@ class form_edit_user(forms.Form):
     bio = forms.CharField(label="Biografia", max_length=150, required=False, widget=forms.Textarea)
     link = forms.URLField(label="Link", required=False)
 
-def file_size(value): # add this to some file where you can import it from
-    limit = 2 * 1024 * 1024
-    if value.size > limit:
-        raise ValidationError('Imagen demasiado grande. El archivo no puede pesar as de  2 MB.')
-
 class Formulario_post(forms.Form):
     titulo = forms.CharField(max_length=20)
     subtitulo = forms.CharField(max_length=50)
@@ -49,4 +44,10 @@ class Formulario_post(forms.Form):
 class Buscar_post(forms.Form):
     titulo = forms.CharField(max_length=20)
 
-
+class registro_obra(forms.Form):
+       first_name = forms.CharField(label="Nombre", max_length=20, required=False)
+       last_name = forms.CharField(label="Apellido", max_length=20) 
+       titulo = forms.CharField(max_length=200, help_text="Titulo de la obra")
+       descripcion = forms.CharField(max_length=300, help_text="Descripción de la obra en 300 caracteres")
+       imagen = forms.ImageField(label="Avatar", required=False,validators=[file_size])
+       precio = forms.IntegerField()

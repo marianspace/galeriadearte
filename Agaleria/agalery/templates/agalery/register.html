@@ -1,22 +1,17 @@
-{% extends 'agalery/index.html' %}
-
+{% extends "agalery/padre.html"%}
 {% block contenido %}
 <section class="py-5">
     <div class="container my-5">
         <div class="col-lg-6">
             
-            <h1> Register</h1>
+            <h1> Registrar</h1>
             <form action="" method="post" enctype="multipart/form-data" >
                 {% csrf_token %}
-                <table>
-                    {{form.as_p}}
-                </table>
-
-
-                <button>Register</button>
+                <table> {{form.as_p}} </table>
+                <button>Registrar</button>
             </form>
 
         </div>
     </div>
 </section>
-{% endblock contenido %} 
+{% endblock contenido %}

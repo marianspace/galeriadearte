@@ -1,65 +1,8 @@
-{% extends 'agalery/index.html' %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        {% load static %}  
-        {% block head %}    
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>About Us</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href={% static 'css/styles.css' %} rel="stylesheet" />
-        {% endblock head %}
-    </head>
-
-    {% block contenido %}
-    
-    <body id="page-top">
-
-        <!-- Header-->
-
-        <header class="bg-primary bg-gradient text-white">
-            <div class="container px4 text-center">
-                <h1 class="fw-bolder">Creditos</h1>
-                <p class="lead">Creador del Blog de anecdotas</p>
-                <a class="btn btn-lg btn-light" href="#about"></a>
-            </div>
-        </header>
-
-        <!-- About section-->
-
-        <section id="about">
-            <div class="container px-4">
-                <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2>De qué se trata la pagina?</h2>
-                        <p class="lead">Además de ser un blog de ancdotas es un lugar donde poder desaogarte con todo lo malo que te pude haber pasado, no solo ahora sino en cualquier momento de tu vida, desde que te caiste de la hamaca cuando eras chiquito hasta cuando te caiste en un charco yendo al boliche y terminaste lleno de baro, o incluso el mejor dia de tu vida, el mas bizarro, el mas random, cualquier cosa es valida todo es posteable en esta epoca y todo sirve </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services section-->
-
-        <section class="bg-light" id="services">
-            <div class="container px-4">
-                <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2>About Me</h2>
-                        <p class="lead">Buenas, yo soy Sebastian Martini de la ciudad de Arroyo seco, tengo 21 años y estoy muy interesado en la programacion web, y estoy aprendiendo cada día mas y mas, es algo que nunca se termina y siempre se aprenden cosas nuevas, nuevos metodos, nuevas tecnologias, y pienso que la programacion es algo MUY importante hoy en dia, y no quiero quedarme atras con ello</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {% endblock contenido %}
-
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
-</html>
+{% extends "agalery/padre.html"%}
+{% load static %}
+{% block contenidoquecambia %}
+<h3>Listado de obras disponibles</h3>
+{% for obra in obras %}
+    <li><b>{{obra.nombre}} - <FONT COLOR="blue">{{ obra.titulo }}</FONT></b> - {{ obra.descripcion }}</li>
+{% endfor %}
+{% endblock %}
